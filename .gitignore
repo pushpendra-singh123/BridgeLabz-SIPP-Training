@@ -1,5 +1,6 @@
 .metadata/
 .project
+.classpath
 ProgrammingElements/.settings/
 ProgrammingElements/.classpath
 ProgrammingElements/.project
@@ -8,10 +9,9 @@ ProgrammingElements/.project
 ProgrammingElements/bin/
 ProgrammingElements//*.class
 
-ControlFlows/.settings/
-ControlFlows/.classpath
-ControlFlows/.project
-
-
-ControlFlows/bin/
-ControlFlows//*.class
+# Ignore Eclipse settings and build files in all subdirectories
+**/.settings/
+**/.classpath
+**/.project
+**/bin/
+**/*.class
