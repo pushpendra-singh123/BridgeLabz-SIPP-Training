@@ -7,3 +7,11 @@ ProgrammingElements/.project
 
 ProgrammingElements/bin/
 ProgrammingElements//*.class
+
+ControlFlows/.settings/
+ControlFlows/.classpath
+ControlFlows/.project
+
+
+ControlFlows/bin/
+ControlFlows//*.class
