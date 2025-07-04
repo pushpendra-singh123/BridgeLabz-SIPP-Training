@@ -1,6 +1,6 @@
 package vehicle_management_system;
 
-//Base Vehicle class
+
 abstract class Vehicle {
  protected String brand;
  protected String model;
@@ -21,7 +21,7 @@ abstract class Vehicle {
  }
 }
 
-//Car subclass
+
 class Car extends Vehicle {
  private int numDoors;
 
@@ -46,7 +46,7 @@ class Car extends Vehicle {
  }
 }
 
-//Bike subclass
+
 class Bike extends Vehicle {
  private String bikeType;
 
@@ -71,7 +71,7 @@ class Bike extends Vehicle {
  }
 }
 
-//Truck subclass
+
 class Truck extends Vehicle {
  private double maxLoad;
 
@@ -96,7 +96,7 @@ class Truck extends Vehicle {
  }
 }
 
-//Garage class to manage multiple vehicles
+
 class Garage {
  private Vehicle[] vehicles;
  private int count;
@@ -131,23 +131,23 @@ class Garage {
  }
 }
 
-//Main class to demonstrate the system
+
 public class VehicleManagementSystem {
  public static void main(String[] args) {
-     // Create a garage with capacity for 5 vehicles
+	 
      Garage myGarage = new Garage(5);
 
-     // Add different types of vehicles
+     
      myGarage.addVehicle(new Car("Toyota", "Camry", "Gasoline", 4));
      myGarage.addVehicle(new Bike("Trek", "FX 2", "None", "Road"));
      myGarage.addVehicle(new Truck("Ford", "F-150", "Diesel", 2.5));
      myGarage.addVehicle(new Car("Tesla", "Model 3", "Electric", 4));
      myGarage.addVehicle(new Bike("Harley-Davidson", "Street 750", "Gasoline", "Cruiser"));
 
-     // Demonstrate polymorphism by servicing all vehicles
+     
      myGarage.serviceAllVehicles();
 
-     // Show total service cost
+     
      System.out.println("\nTotal service cost for all vehicles: $" + 
                        myGarage.calculateTotalServiceCost());
  }
