@@ -1,1 +1,0 @@
-# BridgeLabz-Sipp-Training
