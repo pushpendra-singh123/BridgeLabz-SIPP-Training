@@ -1,0 +1,64 @@
+1. Student Score Storage
+BEGIN
+    DEFINE scores AS Map<String, Integer>
+
+    FUNCTION addStudentScore(name, score)
+        SET scores[name] = score
+
+    FUNCTION getTopScorer()
+        DEFINE maxEntry AS NULL
+        FOR EACH (student, score) IN scores
+            IF maxEntry IS NULL OR score > maxEntry.score
+                SET maxEntry = (student, score)
+        RETURN maxEntry
+
+    MAIN
+        INITIALIZE scores AS empty map
+        CALL addStudentScore("Alice", 85)
+        CALL addStudentScore("Bob", 92)
+        CALL addStudentScore("Charlie", 78)
+        CALL addStudentScore("Diana", 95)
+
+        topScorer = CALL getTopScorer()
+        PRINT "Top Scorer: " + topScorer.student + " with score " + topScorer.score
+END
+
+
+
+*******************************************************************************************************************
+
+2. Employee Record Keeper
+BEGIN
+    CLASS Employee
+        DEFINE name AS STRING
+        DEFINE department AS STRING
+
+        CONSTRUCTOR(name, department)
+            SET this.name = name
+            SET this.department = department
+
+    DEFINE employees AS List<Employee>
+
+    FUNCTION addEmployee(name, department)
+        ADD new Employee(name, department) TO employees
+
+    FUNCTION filterByDepartment(targetDepartment)
+        DEFINE filtered AS empty list
+        FOR EACH emp IN employees
+            IF emp.department == targetDepartment
+                ADD emp TO filtered
+        RETURN filtered
+
+    MAIN
+        INITIALIZE employees AS empty list
+        CALL addEmployee("John", "HR")
+        CALL addEmployee("Emma", "IT")
+        CALL addEmployee("Liam", "Finance")
+        CALL addEmployee("Sophia", "IT")
+
+        desiredDept = "IT"
+        result = CALL filterByDepartment(desiredDept)
+        PRINT "Employees in Department " + desiredDept + ":"
+        FOR EACH emp IN result
+            PRINT emp.name
+END

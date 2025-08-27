@@ -1,0 +1,80 @@
+Pseudo-code: Online Store Cart System
+BEGIN
+    CLASS Item
+        DEFINE name AS STRING
+        DEFINE price AS DECIMAL
+
+        CONSTRUCTOR(name, price)
+            SET this.name = name
+            SET this.price = price
+
+    CLASS ShoppingCart
+        DEFINE cart AS List<Item>
+
+        CONSTRUCTOR
+            SET cart = empty list
+
+        FUNCTION addItem(item)
+            ADD item TO cart
+
+        FUNCTION calculateTotal()
+            DEFINE total AS DECIMAL = 0
+            FOR EACH item IN cart
+                total = total + item.price
+            RETURN total
+
+    MAIN
+        INITIALIZE myCart AS new ShoppingCart()
+        CALL myCart.addItem(new Item("Laptop", 75000))
+        CALL myCart.addItem(new Item("Headphones", 2500))
+        CALL myCart.addItem(new Item("Mouse", 1200))
+
+        totalPrice = CALL myCart.calculateTotal()
+        PRINT "Total Price: " + totalPrice
+END
+
+
+
+*********************************************************************************************************
+
+
+
+Pseudo-code: Hospital Department Mapper
+BEGIN
+    CLASS Doctor
+        DEFINE name AS STRING
+        DEFINE specialization AS STRING
+
+        CONSTRUCTOR(name, specialization)
+            SET this.name = name
+            SET this.specialization = specialization
+
+    DEFINE departmentMap AS Map<String, List<Doctor>>
+
+    FUNCTION addDoctorToDepartment(department, doctor)
+        IF department NOT IN departmentMap
+            departmentMap[department] = empty list
+        ADD doctor TO departmentMap[department]
+
+    FUNCTION filterBySpecialization(department, specialization)
+        IF department NOT IN departmentMap
+            RETURN empty list
+        DEFINE filtered AS empty list
+        FOR EACH doc IN departmentMap[department]
+            IF doc.specialization == specialization
+                ADD doc TO filtered
+        RETURN filtered
+
+    MAIN
+        INITIALIZE departmentMap AS empty map
+        CALL addDoctorToDepartment("Cardiology", new Doctor("Dr. Mehta", "Heart Surgeon"))
+        CALL addDoctorToDepartment("Cardiology", new Doctor("Dr. Singh", "Cardiologist"))
+        CALL addDoctorToDepartment("Neurology", new Doctor("Dr. Rao", "Brain Surgeon"))
+        CALL addDoctorToDepartment("Cardiology", new Doctor("Dr. Sharma", "Heart Surgeon"))
+
+        result = CALL filterBySpecialization("Cardiology", "Heart Surgeon")
+        PRINT "Heart Surgeons in Cardiology Department:"
+        FOR EACH doc IN result
+            PRINT doc.name
+END
+
