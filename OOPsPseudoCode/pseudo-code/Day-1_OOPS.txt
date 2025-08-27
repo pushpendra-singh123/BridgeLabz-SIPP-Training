@@ -1,0 +1,145 @@
+1. Pet Adoption App
+
+BEGIN
+    DEFINE CLASS Pet
+        ATTRIBUTE name
+        ATTRIBUTE age
+        ATTRIBUTE type
+        ATTRIBUTE isAdopted (default = false)
+
+        DEFINE CONSTRUCTOR(name, age, type)
+            SET this.name = name
+            SET this.age = age
+            SET this.type = type
+            SET this.isAdopted = false
+
+        DEFINE METHOD displayDetails()
+            PRINT name
+            PRINT age
+            PRINT type
+            PRINT (IF isAdopted THEN "Adopted" ELSE "Not Adopted")
+
+        DEFINE METHOD markAsAdopted()
+            SET isAdopted = true
+
+        DEFINE METHOD getPetAgeInHumanYears()
+            IF type == "Dog" OR type == "Cat"
+                RETURN age * 7
+            ELSE
+                RETURN age * 4
+
+        DEFINE METHOD isEligibleForAdoption()
+            RETURN age >= 1 AND isAdopted == false
+
+
+    DEFINE CLASS Dog EXTENDS Pet
+        DEFINE CONSTRUCTOR(name, age)
+            CALL super(name, age, "Dog")
+
+        DEFINE METHOD bark()
+            PRINT "Woof! Woof!"
+
+
+    DEFINE CLASS Cat EXTENDS Pet
+        DEFINE CONSTRUCTOR(name, age)
+            CALL super(name, age, "Cat")
+
+        DEFINE METHOD meow()
+            PRINT "Meow!"
+
+
+    DEFINE CLASS Bird EXTENDS Pet
+        DEFINE CONSTRUCTOR(name, age)
+            CALL super(name, age, "Bird")
+
+        DEFINE METHOD chirp()
+            PRINT "Chirp! Chirp!"
+
+
+    DEFINE METHOD displayAdoptionEligibility(pet)
+        IF pet.isEligibleForAdoption()
+            PRINT "Eligible for adoption"
+        ELSE
+            PRINT "Not eligible for adoption"
+
+
+    DEFINE MAIN METHOD
+        INITIALIZE list_of_pets
+        FOR EACH pet IN list_of_pets
+            CALL pet.displayDetails()
+            CALL displayAdoptionEligibility(pet)
+            IF pet is a Dog
+                CALL pet.bark()
+            ELSE IF pet is a Cat
+                CALL pet.meow()
+            ELSE IF pet is a Bird
+                CALL pet.chirp()
+            IF adoption process occurs
+                CALL pet.markAsAdopted()
+                CALL pet.displayDetails()
+            PRINT "Age in human years: " + pet.getPetAgeInHumanYears()
+END
+
+
+
+
+**********************************************************************************************************************
+
+
+2. Library Membership Tracker
+
+BEGIN
+    DEFINE CLASS Member
+        ATTRIBUTE name
+        ATTRIBUTE ID
+        ATTRIBUTE membershipDate
+        ATTRIBUTE booksBorrowed (default = empty list)
+        ATTRIBUTE maxBooksAllowed (default = 5)
+
+        DEFINE CONSTRUCTOR(name, ID, membershipDate)
+            SET this.name = name
+            SET this.ID = ID
+            SET this.membershipDate = membershipDate
+            SET this.booksBorrowed = []
+            SET this.maxBooksAllowed = 5
+
+        DEFINE METHOD displayMemberDetails()
+            PRINT name
+            PRINT ID
+            PRINT membershipDate
+            PRINT booksBorrowed
+            PRINT (IF isMembershipValid(currentDate) THEN "Valid" ELSE "Expired")
+
+        DEFINE METHOD isMembershipValid(currentDate)
+            IF daysBetween(currentDate, membershipDate) <= 365
+                RETURN true
+            ELSE
+                RETURN false
+
+        DEFINE METHOD renewMembership(currentDate)
+            SET membershipDate = currentDate
+
+        DEFINE METHOD borrowBook(bookTitle)
+            IF LENGTH(booksBorrowed) < maxBooksAllowed
+                ADD bookTitle TO booksBorrowed
+            ELSE
+                PRINT "Borrowing limit reached"
+
+        DEFINE METHOD returnBook(bookTitle)
+            IF bookTitle IN booksBorrowed
+                REMOVE bookTitle FROM booksBorrowed
+
+    DEFINE FUNCTION daysBetween(date1, date2)
+        RETURN difference in days between date1 and date2
+
+
+    DEFINE MAIN METHOD
+        INITIALIZE currentDate
+        CREATE members
+        FOR EACH member
+            CHECK membership validity
+            ALLOW borrowing if valid
+            ALLOW returning books
+            DISPLAY member details
+END
+
