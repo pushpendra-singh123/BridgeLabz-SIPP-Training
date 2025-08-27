@@ -1,0 +1,99 @@
+Pseudo-code: Flight Price Analyzer
+BEGIN
+    DEFINE CLASS Flight
+        ATTRIBUTE flightNumber
+        ATTRIBUTE price
+        ATTRIBUTE duration
+        CONSTRUCTOR(flightNumber, price, duration)
+            SET attributes
+
+    DEFINE CLASS CustomComparator
+        METHOD compare(flightA, flightB)
+            IF flightA.price < flightB.price
+                RETURN -1
+            ELSE IF flightA.price > flightB.price
+                RETURN 1
+            ELSE
+                IF flightA.duration < flightB.duration
+                    RETURN -1
+                ELSE IF flightA.duration > flightB.duration
+                    RETURN 1
+                ELSE
+                    RETURN 0
+
+    DEFINE FUNCTION mergeSort(flights, comparator)
+        IF size of flights <= 1
+            RETURN flights
+        mid = size of flights / 2
+        left = mergeSort(flights[0 : mid], comparator)
+        right = mergeSort(flights[mid : end], comparator)
+        RETURN merge(left, right, comparator)
+
+    DEFINE FUNCTION merge(left, right, comparator)
+        result = empty list
+        i = 0
+        j = 0
+        WHILE i < size of left AND j < size of right
+            IF comparator.compare(left[i], right[j]) <= 0
+                ADD left[i] to result
+                i++
+            ELSE
+                ADD right[j] to result
+                j++
+        ADD remaining elements from left to result
+        ADD remaining elements from right to result
+        RETURN result
+
+    DEFINE MAIN
+        flights = [
+            Flight("AI101", 5000, 180),
+            Flight("BA202", 5000, 150),
+            Flight("QA303", 4500, 210),
+            Flight("UA404", 6000, 120)
+        ]
+        sortedFlights = mergeSort(flights, CustomComparator)
+        FOR each flight IN sortedFlights
+            PRINT flight.flightNumber, flight.price, flight.duration
+END
+
+
+
+
+************************************************************************************************************
+
+
+
+
+Pseudo-code: Crime Prediction Heatmap
+BEGIN
+    DEFINE CLASS Zone
+        ATTRIBUTE name
+        ATTRIBUTE crimeScore
+        ATTRIBUTE neighbors (list of connected zones)
+
+    DEFINE FUNCTION DFS(zone, visited, threshold, highRiskZones)
+        MARK zone as visited
+        IF zone.crimeScore > threshold
+            ADD zone.name TO highRiskZones
+        FOR each neighbor IN zone.neighbors
+            IF neighbor NOT IN visited
+                CALL DFS(neighbor, visited, threshold, highRiskZones)
+
+    DEFINE MAIN
+        CREATE graph as list of zones
+        // Example: Z1 connected to Z2 and Z3
+        // Initialize crimeScore for each zone from historical data
+
+        threshold = 70
+        visited = empty set
+        highRiskZones = empty list
+
+        FOR each zone IN graph
+            IF zone NOT IN visited
+                CALL DFS(zone, visited, threshold, highRiskZones)
+
+        PRINT "High Risk Areas:"
+        FOR each area IN highRiskZones
+            PRINT area
+END
+

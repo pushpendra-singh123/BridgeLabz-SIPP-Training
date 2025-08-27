@@ -1,0 +1,47 @@
+1. Undo Feature in Text Editor
+BEGIN
+    INITIALIZE stack undoStack
+
+    DEFINE METHOD typeText(text)
+        PUSH text INTO undoStack
+
+    DEFINE METHOD undo()
+        IF undoStack IS NOT empty
+            POP last entry FROM undoStack
+        ELSE
+            PRINT "Nothing to undo"
+
+    DEFINE MAIN METHOD
+        REPEAT user actions
+            CALL typeText(text) OR CALL undo()
+END
+
+
+
+**************************************************************************************************************
+
+
+
+2. Call Center Queue Management
+BEGIN
+    INITIALIZE queue normalQueue
+    INITIALIZE queue emergencyQueue
+
+    DEFINE METHOD addCustomer(customerName, priority)
+        IF priority == "emergency"
+            ENQUEUE customerName INTO emergencyQueue
+        ELSE
+            ENQUEUE customerName INTO normalQueue
+
+    DEFINE METHOD serveCustomer()
+        IF emergencyQueue IS NOT empty
+            DEQUEUE customer FROM emergencyQueue
+        ELSE IF normalQueue IS NOT empty
+            DEQUEUE customer FROM normalQueue
+        ELSE
+            PRINT "No customers to serve"
+
+    DEFINE MAIN METHOD
+        REPEAT call center operations
+            CALL addCustomer(customerName, priority) OR CALL serveCustomer()
+END
