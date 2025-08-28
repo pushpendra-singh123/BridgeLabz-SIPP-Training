@@ -1,0 +1,64 @@
+Pseudo-code: Traffic Signal Simulation
+BEGIN
+    DEFINE ENUM TrafficLight { RED, YELLOW, GREEN }
+
+    DEFINE CLASS TrafficController
+        ATTRIBUTE currentLight (type TrafficLight)
+
+        DEFINE CONSTRUCTOR(initialLight)
+            SET currentLight = initialLight
+
+        DEFINE METHOD switchLight()
+            IF currentLight == RED
+                SET currentLight = GREEN
+            ELSE IF currentLight == GREEN
+                SET currentLight = YELLOW
+            ELSE IF currentLight == YELLOW
+                SET currentLight = RED
+
+        DEFINE METHOD startSimulation(interval)
+            LOOP infinitely
+                PRINT currentLight
+                WAIT interval seconds
+                CALL switchLight()
+
+    DEFINE MAIN METHOD
+        INITIALIZE signalController WITH starting light = RED
+        CALL signalController.startSimulation(interval)
+END
+
+
+
+
+****************************************************************************************************************************
+
+
+
+
+
+Pseudo-code: Smart Farming System
+
+BEGIN
+    DEFINE ABSTRACT CLASS Crop
+        DEFINE ABSTRACT METHOD waterRequirement()
+        DEFINE ABSTRACT METHOD harvest()
+
+    DEFINE CLASS Rice EXTENDS Crop
+        DEFINE METHOD waterRequirement()
+            PRINT "High water needed"
+        DEFINE METHOD harvest()
+            PRINT "Harvesting Rice"
+
+    DEFINE CLASS Wheat EXTENDS Crop
+        DEFINE METHOD waterRequirement()
+            PRINT "Moderate water needed"
+        DEFINE METHOD harvest()
+            PRINT "Harvesting Wheat"
+
+    DEFINE MAIN METHOD
+        INITIALIZE list_of_crops
+        FOR EACH crop IN list_of_crops
+            CALL crop.waterRequirement()
+            CALL crop.harvest()
+END
+

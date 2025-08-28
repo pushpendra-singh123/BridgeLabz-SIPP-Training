@@ -1,0 +1,56 @@
+Pseudo-code: Patient Record Hashing
+
+BEGIN
+    DEFINE CLASS Patient
+        ATTRIBUTE id
+        ATTRIBUTE name
+        ATTRIBUTE age
+        ATTRIBUTE diagnosis
+
+    INITIALIZE hashMap patientMap (key: id, value: Patient)
+
+    DEFINE METHOD addPatient(patient)
+        PUT patient INTO patientMap WITH key = patient.id
+
+    DEFINE METHOD getPatient(id)
+        RETURN patientMap[id]
+
+    DEFINE METHOD updatePatient(id, updatedPatient)
+        PUT updatedPatient INTO patientMap WITH key = id
+
+    DEFINE METHOD deletePatient(id)
+        REMOVE entry WITH key = id FROM patientMap
+
+    DEFINE MAIN METHOD
+        PERFORM add, retrieve, update, delete operations ON patientMap
+END
+
+
+
+
+***************************************************************************************************************
+
+
+
+
+
+Pseudo-code: Maze Solver Bot (Backtracking)
+BEGIN
+    REPRESENT maze AS 2D grid (0 = path, 1 = wall)
+
+    DEFINE METHOD solveMaze(x, y)
+        IF (x, y) IS goal
+            RETURN true
+        IF position (x, y) IS safe
+            MARK (x, y) AS part_of_path
+            IF solveMaze(x + 1, y)
+                RETURN true
+            IF solveMaze(x, y + 1)
+                RETURN true
+            UNMARK (x, y)  // backtrack
+        RETURN false
+
+    DEFINE MAIN METHOD
+        CALL solveMaze(startX, startY)
+END
+

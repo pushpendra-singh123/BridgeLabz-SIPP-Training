@@ -1,0 +1,101 @@
+Pseudo-code: Distributed Load Balancer (Round Robin with Dynamic Nodes)
+
+BEGIN
+    DEFINE Queue servers
+
+    FUNCTION addServer(serverName)
+        servers.add(serverName)
+
+    FUNCTION removeServer(serverName)
+        servers.remove(serverName)
+
+    FUNCTION assignRequest(requestId)
+        server = servers.poll()
+        PRINT "Request " + requestId + " → " + server
+        servers.add(server)
+
+    MAIN
+        INITIALIZE servers = empty queue
+        CALL addServer("S1")
+        CALL addServer("S2")
+        CALL addServer("S3")
+
+        FOR requestId IN [R1, R2, R3, R4, R5]
+            CALL assignRequest(requestId)
+
+        CALL addServer("S4") // add new server at runtime
+
+        CALL removeServer("S2") // remove failed server
+
+        FOR requestId IN [R6, R7, R8]
+            CALL assignRequest(requestId)
+END
+
+
+
+
+
+***********************************************************************************************************
+
+
+
+
+Pseudo-code: Autocomplete Search Suggestions (Trie)
+
+BEGIN
+    CLASS TrieNode
+        DEFINE children AS Map<Character, TrieNode>
+        DEFINE isEndOfWord AS BOOLEAN
+        DEFINE popularityScore AS INTEGER
+
+        CONSTRUCTOR
+            children = empty map
+            isEndOfWord = FALSE
+            popularityScore = 0
+
+    CLASS Trie
+        DEFINE root AS TrieNode
+
+        FUNCTION insert(keyword, popularityScore)
+            current = root
+            FOR EACH char IN keyword
+                IF char NOT IN current.children
+                    current.children[char] = new TrieNode()
+                current = current.children[char]
+            current.isEndOfWord = TRUE
+            current.popularityScore = popularityScore
+
+        FUNCTION searchPrefix(prefix)
+            current = root
+            FOR EACH char IN prefix
+                IF char NOT IN current.children
+                    RETURN NULL
+                current = current.children[char]
+            RETURN current
+
+        FUNCTION collectSuggestions(node, prefix, resultList)
+            IF node.isEndOfWord
+                ADD (prefix, node.popularityScore) TO resultList
+            FOR EACH (char, child) IN node.children
+                CALL collectSuggestions(child, prefix + char, resultList)
+
+        FUNCTION getTopNSuggestions(prefix, N)
+            startNode = searchPrefix(prefix)
+            IF startNode IS NULL
+                RETURN empty list
+            DEFINE results AS empty list
+            CALL collectSuggestions(startNode, prefix, results)
+            SORT results BY popularityScore DESC
+            RETURN first N items of results
+
+    MAIN
+        trie = new Trie()
+        CALL trie.insert("apple", 50)
+        CALL trie.insert("app", 70)
+        CALL trie.insert("application", 60)
+        CALL trie.insert("apt", 40)
+
+        PRINT trie.getTopNSuggestions("app", 2)
+        CALL trie.insert("appetizer", 55)
+        PRINT trie.getTopNSuggestions("app", 3)
+END

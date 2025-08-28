@@ -1,0 +1,94 @@
+Pseudo-code: College Course Registration
+BEGIN
+    CLASS Course
+        DEFINE name AS STRING
+        DEFINE code AS STRING
+
+        CONSTRUCTOR(name, code)
+            SET this.name = name
+            SET this.code = code
+
+    CLASS Student
+        DEFINE name AS STRING
+        DEFINE rollNumber AS STRING
+
+        CONSTRUCTOR(name, rollNumber)
+            SET this.name = name
+            SET this.rollNumber = rollNumber
+
+    DEFINE registrationMap AS Map<Course, List<Student>>
+
+    FUNCTION registerStudent(course, student)
+        IF course NOT IN registrationMap
+            SET registrationMap[course] = empty list
+        ADD student TO registrationMap[course]
+
+    FUNCTION displayStudents(course)
+        IF course IN registrationMap
+            PRINT "Students registered for: " + course.name
+            FOR EACH student IN registrationMap[course]
+                PRINT student.name + " (" + student.rollNumber + ")"
+        ELSE
+            PRINT "No students registered for this course."
+
+    MAIN
+        course1 = new Course("Mathematics", "M101")
+        course2 = new Course("Physics", "P202")
+
+        student1 = new Student("Alice", "R001")
+        student2 = new Student("Bob", "R002")
+        student3 = new Student("Charlie", "R003")
+
+        CALL registerStudent(course1, student1)
+        CALL registerStudent(course1, student2)
+        CALL registerStudent(course2, student3)
+
+        CALL displayStudents(course1)
+        CALL displayStudents(course2)
+END
+
+
+************************************************************************************************************************
+
+
+Pseudo-code: Digital Wallet Transactions Report
+BEGIN
+    CLASS Transaction
+        DEFINE id AS STRING
+        DEFINE merchant AS STRING
+        DEFINE month AS STRING
+        DEFINE amount AS DECIMAL
+
+        CONSTRUCTOR(id, merchant, month, amount)
+            SET this.id = id
+            SET this.merchant = merchant
+            SET this.month = month
+            SET this.amount = amount
+
+    DEFINE transactions AS List<Transaction>
+
+    FUNCTION generateReport()
+        DEFINE report AS Map<merchant, Map<month, totalAmount>>
+
+        FOR EACH transaction IN transactions
+            IF transaction.merchant NOT IN report
+                SET report[transaction.merchant] = empty map
+            IF transaction.month NOT IN report[transaction.merchant]
+                SET report[transaction.merchant][transaction.month] = 0
+            ADD transaction.amount TO report[transaction.merchant][transaction.month]
+
+        RETURN report
+
+    MAIN
+        ADD new Transaction("T001", "Amazon", "January", 1500.50) TO transactions
+        ADD new Transaction("T002", "Amazon", "January", 2000.00) TO transactions
+        ADD new Transaction("T003", "Flipkart", "February", 1000.75) TO transactions
+        ADD new Transaction("T004", "Amazon", "February", 2500.25) TO transactions
+
+        result = CALL generateReport()
+        FOR EACH merchant IN result
+            PRINT "Merchant: " + merchant
+            FOR EACH month IN result[merchant]
+                PRINT "   " + month + ": " + result[merchant][month]
+END
+

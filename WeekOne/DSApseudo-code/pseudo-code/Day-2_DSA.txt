@@ -1,0 +1,43 @@
+Pseudo-code: Online Quiz Timer
+
+BEGIN
+    INITIALIZE circularArray timeSlots WITH durations for each question
+    DEFINE VARIABLE warningThreshold
+
+    FOR EACH questionIndex IN quiz
+        SET timer = timeSlots[questionIndex MOD length_of(timeSlots)]
+        WHILE timer > 0
+            IF timer == warningThreshold
+                DISPLAY "Time almost up!"
+            DECREMENT timer BY 1
+    END FOR
+
+    END quiz AFTER all questions attempted
+END
+
+
+
+******************************************************************************************************************
+
+
+
+
+Pseudo-code: Job Scheduler
+
+BEGIN
+    DEFINE CLASS Job
+        ATTRIBUTE id
+        ATTRIBUTE deadline
+        ATTRIBUTE processingTime
+
+    INITIALIZE priorityQueue jobsQueue SORTED BY earliest deadline
+
+    WHILE jobsQueue IS NOT empty
+        job = POLL from jobsQueue
+        PROCESS job
+        UPDATE systemClock BY job.processingTime
+        RECORD job.id IN executionOrder
+
+    OUTPUT executionOrder
+END
+

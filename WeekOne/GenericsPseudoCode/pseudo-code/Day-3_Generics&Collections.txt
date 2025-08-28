@@ -1,0 +1,82 @@
+Pseudo-code: Library Book Filter
+BEGIN
+    CLASS Book
+        DEFINE title AS STRING
+        DEFINE year AS INTEGER
+        DEFINE rating AS DECIMAL
+
+        CONSTRUCTOR(title, year, rating)
+            SET this.title = title
+            SET this.year = year
+            SET this.rating = rating
+
+    DEFINE books AS List<Book>
+
+    FUNCTION filterBooks()
+        DEFINE filtered AS empty list
+        FOR EACH book IN books
+            IF book.year > 2015 AND book.rating > 4.5
+                ADD book TO filtered
+        RETURN filtered
+
+    MAIN
+        ADD new Book("Book A", 2018, 4.7) TO books
+        ADD new Book("Book B", 2014, 4.6) TO books
+        ADD new Book("Book C", 2020, 4.8) TO books
+
+        result = CALL filterBooks()
+        PRINT "Books published after 2015 with rating > 4.5:"
+        FOR EACH book IN result
+            PRINT book.title
+END
+
+
+***************************************************************************************************************
+
+
+
+Pseudo-code: Payment Processor
+BEGIN
+    CLASS Transaction<T>
+        DEFINE paymentMethod AS T
+
+        CONSTRUCTOR(paymentMethod)
+            SET this.paymentMethod = paymentMethod
+
+        FUNCTION processTransaction()
+            PRINT "Processing transaction with: " + paymentMethod
+
+    CLASS UPI
+        DEFINE id AS STRING
+        DEFINE appName AS STRING
+
+        CONSTRUCTOR(id, appName)
+            SET this.id = id
+            SET this.appName = appName
+
+    CLASS Card
+        DEFINE cardNumber AS STRING
+        DEFINE expiry AS STRING
+
+        CONSTRUCTOR(cardNumber, expiry)
+            SET this.cardNumber = cardNumber
+            SET this.expiry = expiry
+
+    CLASS NetBanking
+        DEFINE bankName AS STRING
+        DEFINE accountNumber AS STRING
+
+        CONSTRUCTOR(bankName, accountNumber)
+            SET this.bankName = bankName
+            SET this.accountNumber = accountNumber
+
+    MAIN
+        upiPayment = new UPI("upi123", "Google Pay")
+        cardPayment = new Card("1234-5678-9876-5432", "12/25")
+        netBankingPayment = new NetBanking("State Bank", "SB12345678")
+
+        CALL new Transaction<UPI>(upiPayment).processTransaction()
+        CALL new Transaction<Card>(cardPayment).processTransaction()
+        CALL new Transaction<NetBanking>(netBankingPayment).processTransaction()
+END
+
